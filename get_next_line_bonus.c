@@ -6,22 +6,25 @@
 /*   By: ilsong <ilsong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 14:26:59 by ilsong            #+#    #+#             */
-/*   Updated: 2021/01/13 03:16:50 by ilsong           ###   ########.fr       */
+/*   Updated: 2021/01/14 15:58:35 by ilsong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_freeline(char* line, size_t rlen)
+void	ft_freeline(char *line, size_t rlen)
 {
+	char	*temp;
+
+	temp = line;
 	while (*line && --rlen)
-			*line++ = '\0';
-	//free(line);
-	line = NULL;
-	return;
+		*line++ = '\1';
+	free(temp);
+	temp = NULL;
+	return ;
 }
 
-void	ft_delline(char* subline, char *nl_loc)
+void	ft_delline(char *subline, char *nl_loc)
 {
 	if (!subline || !nl_loc)
 		return ;
@@ -32,9 +35,9 @@ void	ft_delline(char* subline, char *nl_loc)
 	return ;
 }
 
-char	*ft_mkline(char* subline, char* buff, size_t rlen)
+char	*ft_mkline(char *subline, char *buff, size_t rlen)
 {
-	char*	join;
+	char	*join;
 
 	if (subline == NULL)
 	{
@@ -48,8 +51,8 @@ char	*ft_mkline(char* subline, char* buff, size_t rlen)
 	return (subline);
 }
 
-char	*ft_strdup(char* s)
- {
+char	*ft_strdup(char *s)
+{
 	char	*buff;
 	char	*ptr;
 	size_t	slen;
@@ -63,33 +66,33 @@ char	*ft_strdup(char* s)
 	while (*s)
 	{
 		if (*s == '\n')
-			break;
+			break ;
 		*buff++ = *s++;
 	}
 	*buff = '\0';
 	return (ptr);
 }
 
-int	get_next_line(int fd, char** line)
+int		get_next_line(int fd, char **line)
 {
 	char			buff[BUFFER_SIZE + 1];
 	char			*nl_loc;
 	size_t			rlen;
 	static char		*sub_line[OPEN_MAX];
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || fd > FOPEN_MAX || !line)
+	if (BUFFER_SIZE <= 0 || fd < 0 || FOPEN_MAX < fd || !line)
 		return (-1);
 	while ((rlen = read(fd, buff, BUFFER_SIZE)) && !(ft_strchr(buff, '\n')))
 		sub_line[fd] = ft_mkline(sub_line[fd], buff, rlen);
 	sub_line[fd] = ft_mkline(sub_line[fd], buff, rlen);
 	*line = ft_strdup(sub_line[fd]);
+	printf("%d ::: %s", fd, line);
 	nl_loc = ft_strchr(sub_line[fd], '\n');
 	ft_delline(sub_line[fd], nl_loc);
 	if (!rlen && !nl_loc)
 	{
-		//free(sub_line);
 		ft_freeline(sub_line[fd], rlen);
 		return (0);
 	}
-		return (1);
+	return (1);
 }
