@@ -6,7 +6,7 @@
 /*   By: ilsong <ilsong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 14:49:13 by ilsong            #+#    #+#             */
-/*   Updated: 2021/01/14 15:58:15 by ilsong           ###   ########.fr       */
+/*   Updated: 2021/01/15 01:17:44 by ilsong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
 # include <stdio.h>
 
 # ifndef BUFFER_SIZE

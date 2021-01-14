@@ -6,20 +6,21 @@
 /*   By: ilsong <ilsong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 14:26:59 by ilsong            #+#    #+#             */
-/*   Updated: 2021/01/14 15:58:35 by ilsong           ###   ########.fr       */
+/*   Updated: 2021/01/15 01:37:24 by ilsong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_freeline(char *line, size_t rlen)
+void	ft_freeline(char *line, int rlen)
 {
 	char	*temp;
 
 	temp = line;
 	while (*line && --rlen)
-		*line++ = '\1';
-	free(temp);
+		*line++ = '\0';
+	if (*temp)
+		free(temp);
 	temp = NULL;
 	return ;
 }
@@ -35,10 +36,12 @@ void	ft_delline(char *subline, char *nl_loc)
 	return ;
 }
 
-char	*ft_mkline(char *subline, char *buff, size_t rlen)
+char	*ft_mkline(char *subline, char *buff, int rlen)
 {
 	char	*join;
 
+	if (rlen == -1)
+		return (NULL);
 	if (subline == NULL)
 	{
 		subline = (char *)malloc(sizeof(char) * 1);
@@ -46,6 +49,7 @@ char	*ft_mkline(char *subline, char *buff, size_t rlen)
 	}
 	buff[rlen] = 0;
 	join = ft_strjoin(subline, buff);
+	*subline = 0;
 	free(subline);
 	subline = join;
 	return (subline);
@@ -78,12 +82,15 @@ int		get_next_line(int fd, char **line)
 	char			buff[BUFFER_SIZE + 1];
 	char			*nl_loc;
 	size_t			rlen;
-	static char		*sub_line[OPEN_MAX];
+	static	char	*sub_line[OPEN_MAX];
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || FOPEN_MAX < fd || !line)
+	**line = NULL;
+	if (BUFFER_SIZE <= 0 || fd < 0 || OPEN_MAX < fd || !line)
 		return (-1);
 	while ((rlen = read(fd, buff, BUFFER_SIZE)) && !(ft_strchr(buff, '\n')))
 		sub_line[fd] = ft_mkline(sub_line[fd], buff, rlen);
+	if (rlen == -1)
+		return (-1);
 	sub_line[fd] = ft_mkline(sub_line[fd], buff, rlen);
 	*line = ft_strdup(sub_line[fd]);
 	printf("%d ::: %s", fd, line);
