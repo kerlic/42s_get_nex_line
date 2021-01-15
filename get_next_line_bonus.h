@@ -6,7 +6,7 @@
 /*   By: ilsong <ilsong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 14:49:13 by ilsong            #+#    #+#             */
-/*   Updated: 2021/01/15 01:17:44 by ilsong           ###   ########.fr       */
+/*   Updated: 2021/01/15 23:23:21 by ilsong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 int		get_next_line(int fd, char **line);
 char	*ft_strcp(char *str, char *src, int is_buff);
-char	*ft_strchr(const char *str, int c);
+char	*ft_strchr(const char *str, int c, int len);
 char	*ft_strjoin(char *subline, char *buff);
 size_t	ft_strlen(const char *str);
 

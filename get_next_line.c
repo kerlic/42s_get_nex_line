@@ -6,7 +6,7 @@
 /*   By: ilsong <ilsong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 20:22:09 by ilsong            #+#    #+#             */
-/*   Updated: 2021/01/15 01:36:42 by ilsong           ###   ########.fr       */
+/*   Updated: 2021/01/15 23:22:23 by ilsong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_mkline(char *subline, char *buff, int rlen)
 	}
 	buff[rlen] = 0;
 	join = ft_strjoin(subline, buff);
-	*subline = -1;
+	*subline = 0;
 	free(subline);
 	subline = join;
 	return (subline);
@@ -86,15 +86,16 @@ int		get_next_line(int fd, char **line)
 
 	if (BUFFER_SIZE <= 0 || fd < 0 || OPEN_MAX < fd || !line)
 		return (-1);
-	while ((rlen = read(fd, buff, BUFFER_SIZE)) && !(ft_strchr(buff, '\n')))
+	while ((rlen = read(fd, buff, BUFFER_SIZE)) && rlen != -1
+		&& !ft_strchrlen(buff, '\n', rlen))
 		sub_line[fd] = ft_mkline(sub_line[fd], buff, rlen);
 	if (rlen == -1)
 		return (-1);
 	sub_line[fd] = ft_mkline(sub_line[fd], buff, rlen);
 	*line = ft_strdup(sub_line[fd]);
-	nl_loc = ft_strchr(sub_line[fd], '\n');
+	nl_loc = ft_strchr(sub_line[fd], '\n', -1);
 	ft_delline(sub_line[fd], nl_loc);
-	if (!rlen && !nl_loc)
+	if (rlen < BUFFER_SIZE && !nl_loc)
 	{
 		ft_freeline(sub_line[fd], rlen);
 		return (0);
