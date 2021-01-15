@@ -6,7 +6,7 @@
 /*   By: ilsong <ilsong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 14:26:59 by ilsong            #+#    #+#             */
-/*   Updated: 2021/01/15 23:23:36 by ilsong           ###   ########.fr       */
+/*   Updated: 2021/01/15 23:33:33 by ilsong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		get_next_line(int fd, char **line)
 	if (BUFFER_SIZE <= 0 || fd < 0 || OPEN_MAX < fd || !line)
 		return (-1);
 	while ((rlen = read(fd, buff, BUFFER_SIZE)) && rlen != -1
-		&& !ft_strchrlen(buff, '\n', rlen))
+		&& !ft_strchr(buff, '\n', rlen))
 		sub_line[fd] = ft_mkline(sub_line[fd], buff, rlen);
 	if (rlen == -1)
 		return (-1);
