@@ -6,7 +6,7 @@
 /*   By: ilsong <ilsong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 20:22:09 by ilsong            #+#    #+#             */
-/*   Updated: 2021/01/15 23:32:48 by ilsong           ###   ########.fr       */
+/*   Updated: 2021/01/16 23:40:27 by ilsong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,8 @@ char	*ft_mkline(char *subline, char *buff, int rlen)
 	}
 	buff[rlen] = 0;
 	join = ft_strjoin(subline, buff);
-	*subline = 0;
 	free(subline);
-	subline = join;
-	return (subline);
+	return (join);
 }
 
 char	*ft_strdup(char *s)

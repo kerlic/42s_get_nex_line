@@ -6,11 +6,11 @@
 /*   By: ilsong <ilsong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 14:26:59 by ilsong            #+#    #+#             */
-/*   Updated: 2021/01/15 23:33:33 by ilsong           ###   ########.fr       */
+/*   Updated: 2021/01/16 23:40:20 by ilsong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	ft_freeline(char *line, int rlen)
 {
@@ -49,10 +49,8 @@ char	*ft_mkline(char *subline, char *buff, int rlen)
 	}
 	buff[rlen] = 0;
 	join = ft_strjoin(subline, buff);
-	*subline = 0;
 	free(subline);
-	subline = join;
-	return (subline);
+	return (join);
 }
 
 char	*ft_strdup(char *s)

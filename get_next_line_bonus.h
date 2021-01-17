@@ -6,7 +6,7 @@
 /*   By: ilsong <ilsong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 14:49:13 by ilsong            #+#    #+#             */
-/*   Updated: 2021/01/15 23:23:21 by ilsong           ###   ########.fr       */
+/*   Updated: 2021/01/17 19:40:33 by ilsong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 400
+#  define BUFFER_SIZE 300
 # endif
 
 # ifndef OPEN_MAX
