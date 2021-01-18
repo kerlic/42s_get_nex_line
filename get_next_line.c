@@ -6,24 +6,11 @@
 /*   By: ilsong <ilsong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 20:22:09 by ilsong            #+#    #+#             */
-/*   Updated: 2021/01/16 23:40:27 by ilsong           ###   ########.fr       */
+/*   Updated: 2021/01/19 00:06:35 by ilsong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-void	ft_freeline(char *line, int rlen)
-{
-	char	*temp;
-
-	temp = line;
-	while (*line && --rlen)
-		*line++ = '\0';
-	if (*temp)
-		free(temp);
-	temp = NULL;
-	return ;
-}
 
 void	ft_delline(char *subline, char *nl_loc)
 {
@@ -50,6 +37,7 @@ char	*ft_mkline(char *subline, char *buff, int rlen)
 	buff[rlen] = 0;
 	join = ft_strjoin(subline, buff);
 	free(subline);
+	subline = NULL;
 	return (join);
 }
 
@@ -95,7 +83,8 @@ int		get_next_line(int fd, char **line)
 	ft_delline(sub_line[fd], nl_loc);
 	if (rlen < BUFFER_SIZE && !nl_loc)
 	{
-		ft_freeline(sub_line[fd], rlen);
+		free(sub_line[fd]);
+		sub_line[fd] = NULL;
 		return (0);
 	}
 	return (1);
